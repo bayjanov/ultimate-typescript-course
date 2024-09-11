@@ -1,15 +1,14 @@
 // Classes
-class Account { 
-    readonly id: number; // now that we have readonly property, we can't change the value of id
-    owner: string;
-    private _balance: number; // Now balance is private, so we can't access it outside the class
-    nickname?: string; // Optional property
+class Account {
+    // Fields
+    nickname?: string; // Optional field
 
-    constructor(id: number, owner: string, balance: number) {
-        this.id = id;
-        this.owner = owner;
-        this._balance = balance;
-    }
+    // Parameter properties
+    constructor(
+        public readonly id: number,
+        public owner: string, 
+        private _balance: number
+    ) {}
 
     deposit(amount: number): void {
         if (amount <= 0) {
