@@ -308,3 +308,46 @@ let teacher = new Teacher("John", "Smith")
 
 
 
+
+// =================== POLYMORPHISM ===================
+// MANY + FORMS, this refers to the situation where object can take many different forms
+
+
+class Principal extends Person {
+    override get fullName() {
+        return 'Principal' + super.fullName;
+    }
+
+    // get fullName() {                         // if noImplicitOverride: true this will show an error
+    //     return 'Professor' + super.fullName;
+    // }
+}
+
+function printNames(people: Person[]) {
+    for (let person of people) {
+        console.log(person.fullName);
+    }
+}
+
+printNames([
+    new Student(1, "John", "Smith"),
+    new Teacher("Albert", "Einstein"),
+    new Principal("Mary", "Smith")
+])
+
+// =============================== OPEN/CLOSED PRINCIPLE ====================================
+//                                                                                         //
+// The open/closed principle states that software entities should be open for extension,   //
+// but closed for modification.                                                            //
+//                                                                                         //
+//  This is where the Polymorphism and method overriding can be handy, like we added       //
+//  Principal class.                                                                       //
+//                                                                                         //
+//  Override is needed so that all classes behave the same way. Because smb can go and     //
+//  change fullName method in the base class to behave differently and then it won't be    //
+//  applied to the Child classes.                                                          //
+//                                                                                         //
+//  This would break our Polymorphism                                                      //
+//                                                                                         //
+// ==========================================================================================
+
