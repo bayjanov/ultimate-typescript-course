@@ -198,3 +198,54 @@ seats.A1 = 'Mosh';
 // seats['A1'] = 'Bakhti'; // Same as seats.A1 = 'Bakhti';
 seats.A2 = 'John';
 
+
+// =================== STATIC MEMBERS ===================
+
+// Static members are shared across all instances of a class. Static Propery belongs to a class and not to the object
+
+class Ride {
+
+    // THE NON STATIC WAY 
+
+    // we wanna know how many active rides we have in our system
+    activeRides: number = 0;
+
+    start() { this.activeRides++ };
+    stop() { this.activeRides--}
+}
+
+let ride1 = new Ride();
+ride1.start();
+
+let ride2 = new Ride();
+ride2.start();
+
+// This shows only 1 because each of the objects are independent here. That is why we can use here static members
+console.log(ride1.activeRides) // 1
+console.log(ride2.activeRides) // 1
+
+
+// THE STATIC WAY
+class RideSt {
+
+    private static _activeRides: number = 0;
+
+    start() { RideSt._activeRides++ };
+    stop() { RideSt._activeRides--}
+
+    static get activeRides() {  // this is to avoid setting activeRides
+        return RideSt._activeRides;
+    }
+}
+
+let ride11 = new Ride();
+ride1.start();
+
+let ride22 = new Ride();
+ride2.start();
+
+console.log(RideSt.activeRides);
+
+
+
+
