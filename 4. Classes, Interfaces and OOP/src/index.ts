@@ -351,3 +351,28 @@ printNames([
 //                                                                                         //
 // ==========================================================================================
 
+
+
+// =============================== PRIVATE VS PROTECTED MODIFIER ====================================
+
+// The difference is protected members are inherited by the child classes, but private members are not.
+// You shouldm't use the protected member that often, because it could create a tight COUPLEING between the parent and child classes.
+
+// Coupling is simply the degree of dependency between two classes. The more a class is dependent on another class, the more tightly coupled they are.
+
+// So use private and public members, unless you have a good reason to use protected members.
+
+class Human {
+    constructor(
+        public firstName: string, 
+        public lastName: string,
+    ) {}
+
+    private get fullName() {                        // this is private, so it can't be accessed by the child classes
+        return this.firstName + ' ' + this.lastName;
+    }
+
+    protected walk() {            // this is protected, so it can be accessed by the child classes
+        console.log("Walking");
+    }
+}
