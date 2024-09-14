@@ -405,3 +405,45 @@ class Circle extends Shape {
 
 // let shape = new Shape('red');  // after making it abstract we cannot create an instance here.
 // shape.render();  // But what does it mean to render a shape? It is not smth specific like circle or square. So this is an abstract concept. This is why we need to make the Shape object abstract. 
+
+
+// ========================= INTERFACES ===============================
+
+// Using an interface we can say that all our calendars should have the same properties and methods defined in the interface.
+// Interfaces cannot have method implementations, they can only have the Declarations, so we only specify the signature of our methods.
+
+interface Calendar {   // purely used by TS, doesn't exist in JS
+    name: string,
+    addEvent(): void,    
+    removeEvent(): void,
+}
+
+// So in this case we don't have method logic, but just declarations we can just use th eInterface
+// abstract class Calendar {
+//     constructor(public name: string) {};
+
+//     abstract addEvent(): void;
+//     abstract removeEvent(): void;
+
+// }
+
+
+interface CloudCalendar extends Calendar {
+    sync(): void,
+}
+
+class GoogleCalendar implements Calendar {
+    
+    constructor(public name: string) {}
+
+    addEvent(): void {
+        throw new Error("Method not implemented.");
+    }
+    removeEvent(): void {
+        throw new Error("Method not implemented.");
+    }
+
+}
+
+
+// So using an object we can define the shape of an object (class that extends the interface)
