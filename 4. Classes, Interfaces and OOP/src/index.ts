@@ -376,3 +376,32 @@ class Human {
         console.log("Walking");
     }
 }
+
+
+
+// =============================== ABSTRACT CLASSES AND METHODS ====================================
+
+// Abstract classes are used to provide a blueprint for other classes.
+
+
+// class Shape {  // before
+abstract class Shape {  // after abstacting 
+    constructor( public color: string) {}
+
+    abstract render(): void;  // abstract methods can only exist inside absract classes. 
+}
+
+class Circle extends Shape {
+    constructor(
+        public radius: number, 
+        color: string) {
+        super(color);
+    }
+
+    override render(): void {
+        console.log("Rendering a circle");
+    }   
+}
+
+// let shape = new Shape('red');  // after making it abstract we cannot create an instance here.
+// shape.render();  // But what does it mean to render a shape? It is not smth specific like circle or square. So this is an abstract concept. This is why we need to make the Shape object abstract. 
