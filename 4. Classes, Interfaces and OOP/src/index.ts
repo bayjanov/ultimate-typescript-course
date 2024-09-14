@@ -249,3 +249,62 @@ console.log(RideSt.activeRides);
 
 
 
+// =================== INHERITANCE ===================
+
+class Person {
+    constructor(
+        public firstName: string, 
+        public lastName: string,
+    ) {}
+
+    get fullName() {
+        return this.firstName + ' ' + this.lastName;
+    }
+
+    walk() {
+        console.log("Walking");
+    }
+}
+
+
+class Student extends Person {
+    constructor(
+        public studentId: number,
+        firstName: string,
+        lastName: string,
+    ) { 
+        super(firstName, lastName); 
+    }
+
+    takeTest() {
+        console.log("Taking a test.")
+    }
+}
+
+let student =  new Student(1, "John", "john@gmail.com");
+
+// Here we created both classes in the same file for demonstrational purposes. But the best practce is to create them in separate files.
+
+
+
+// =================== METHOD OVERRIDING ===================
+// Changing the implementation of the method that is being inherted from parent class, in the child class. 
+
+class Teacher extends Person {
+    override get fullName() {
+        return 'Professor' + super.fullName;
+    }
+
+    // get fullName() {                         // if noImplicitOverride: true this will show an error
+    //     return 'Professor' + super.fullName;
+    // }
+}
+
+let teacher = new Teacher("John", "Smith")
+
+// Now we could just create a new method instead of overriding the existing one. But it might cause some problems. 
+// So we enable the following option in the tsconfig file:    
+// "noImplicitOverride": true,         /* Ensure overriding members in derived classes are marked with an override modifier. */
+
+
+
