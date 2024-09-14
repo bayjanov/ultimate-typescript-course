@@ -1,5 +1,7 @@
 // =================== CREATING CLASSES ===================
-// A class serves as a blueprint for creating objects with specific properties and methods.
+/**
+ * A class serves as a blueprint for creating objects with specific properties and methods.
+ */
 class Account {
     // Fields
     id: number;
@@ -18,7 +20,9 @@ class Account {
         this._balance = balance;
     }
 
-    // Method to deposit an amount, throws error if invalid
+    /**
+     * Method to deposit an amount, throws error if invalid
+     */
     deposit(amount: number): void {
         if (amount <= 0)
             throw new Error("Invalid amount!");
@@ -26,13 +30,17 @@ class Account {
         this._balance += amount;
     }
 
-    // Private method to calculate tax, only accessible within the class
+    /**
+     * Private method to calculate tax, only accessible within the class
+     */
     private calculateTax(): number {
         return this._balance * 0.25;
     }
 
-    // Getter - This is a read-only property, accessible like a field
-    get balance(): number { 
+    /**
+     * Getter - This is a read-only property, accessible like a field
+     */
+    get balance(): number {
         return this._balance;
     }
 
@@ -44,7 +52,7 @@ class Account {
     // }
 }
 
-// =================== INSTANTIATING CLASSES | CREATING OBJECTS===================
+// =================== INSTANTIATING CLASSES | CREATING OBJECTS ===================
 let account = new Account(101, 'John', 1500);
 account.deposit(200); // Adds 200 to balance
 console.log(account.balance); // 1700
@@ -52,13 +60,15 @@ console.log(account); // Account { id: 101, owner: 'John', balance: 1700 }
 console.log(typeof account); // object
 console.log(account instanceof Account); // true
 
-// Access Modifiers
-// Public, Private, and Protected fields
+/**
+ * Access Modifiers
+ * Public, Private, and Protected fields
+ */
 console.log(account.balance); // 1700
 // account.balance = 100; // Setter is called (if enabled)
 // account.balance; // Error: Property 'balance' is private and only accessible within the class
 
-// Read-Only and Optional Properties
+// =================== READ-ONLY AND OPTIONAL PROPERTIES ===================
 class Account1 {
     readonly id: number;
     owner: string;
@@ -136,7 +146,7 @@ class Account3 {
     }
 }
 
-//==================== GETTERS AND SETTERS ====================
+// ==================== GETTERS AND SETTERS ====================
 class Account4 {
     nickname?: string;
 
@@ -169,20 +179,15 @@ class Account4 {
 let account4 = new Account4(303, 'John', 3000);
 console.log(account4.balance); // 3000
 
-
-
-//=============== INDEX SIGNATURES ===============
-
-// Index signatures allow objects to have dynamic properties
+// ==================== INDEX SIGNATURES ====================
 class Account5 {
     nickname?: string;
 
     constructor(
-        public readonly id: number, // Auto-generates and initializes id
-        public owner: string,       // Publicly accessible owner
-        private _balance: number     // Private balance field
+        public readonly id: number,
+        public owner: string,
+        private _balance: number
     ) {}
-
 }
 
 class SeatAssignment {
@@ -190,75 +195,54 @@ class SeatAssignment {
     // Mosh, John, ...
     // Index signature property
     [seatNumber: string]: string;
-
 }
 
 let seats = new SeatAssignment();
 seats.A1 = 'Mosh';
-// seats['A1'] = 'Bakhti'; // Same as seats.A1 = 'Bakhti';
 seats.A2 = 'John';
 
-
-// =================== STATIC MEMBERS ===================
-
-// Static members are shared across all instances of a class. Static Propery belongs to a class and not to the object
-
+// ==================== STATIC MEMBERS ====================
+// Static members are shared across all instances of a class. 
+// Static Property belongs to a class and not to the object.
 class Ride {
-
-    // THE NON STATIC WAY 
-
-    // we wanna know how many active rides we have in our system
+    // Non-static way to track active rides
     activeRides: number = 0;
 
     start() { this.activeRides++ };
-    stop() { this.activeRides--}
+    stop() { this.activeRides-- };
 }
 
 let ride1 = new Ride();
 ride1.start();
-
 let ride2 = new Ride();
 ride2.start();
 
-// This shows only 1 because each of the objects are independent here. That is why we can use here static members
-console.log(ride1.activeRides) // 1
-console.log(ride2.activeRides) // 1
+console.log(ride1.activeRides); // 1
+console.log(ride2.activeRides); // 1
 
-
-// THE STATIC WAY
+// The static way
 class RideSt {
-
     private static _activeRides: number = 0;
 
     start() { RideSt._activeRides++ };
-    stop() { RideSt._activeRides--}
+    stop() { RideSt._activeRides-- };
 
-    static get activeRides() {  // this is to avoid setting activeRides
+    static get activeRides() { // Prevent setting activeRides directly
         return RideSt._activeRides;
     }
 }
 
-let ride11 = new Ride();
-ride1.start();
+console.log(RideSt.activeRides); // 2
 
-let ride22 = new Ride();
-ride2.start();
-
-console.log(RideSt.activeRides);
-
-
-
-
-// =================== INHERITANCE ===================
-
+// ==================== INHERITANCE ====================
 class Person {
     constructor(
-        public firstName: string, 
+        public firstName: string,
         public lastName: string,
     ) {}
 
     get fullName() {
-        return this.firstName + ' ' + this.lastName;
+        return `${this.firstName} ${this.lastName}`;
     }
 
     walk() {
@@ -266,61 +250,38 @@ class Person {
     }
 }
 
-
 class Student extends Person {
     constructor(
         public studentId: number,
         firstName: string,
         lastName: string,
-    ) { 
-        super(firstName, lastName); 
+    ) {
+        super(firstName, lastName);
     }
 
     takeTest() {
-        console.log("Taking a test.")
+        console.log("Taking a test.");
     }
 }
 
-let student =  new Student(1, "John", "john@gmail.com");
+let student = new Student(1, "John", "Doe");
+console.log(student.fullName); // John Doe
 
-// Here we created both classes in the same file for demonstrational purposes. But the best practce is to create them in separate files.
-
-
-
-// =================== METHOD OVERRIDING ===================
-// Changing the implementation of the method that is being inherted from parent class, in the child class. 
-
+// ==================== METHOD OVERRIDING ====================
 class Teacher extends Person {
     override get fullName() {
-        return 'Professor' + super.fullName;
+        return `Professor ${super.fullName}`;
     }
-
-    // get fullName() {                         // if noImplicitOverride: true this will show an error
-    //     return 'Professor' + super.fullName;
-    // }
 }
 
-let teacher = new Teacher("John", "Smith")
+let teacher = new Teacher("John", "Smith");
+console.log(teacher.fullName); // Professor John Smith
 
-// Now we could just create a new method instead of overriding the existing one. But it might cause some problems. 
-// So we enable the following option in the tsconfig file:    
-// "noImplicitOverride": true,         /* Ensure overriding members in derived classes are marked with an override modifier. */
-
-
-
-
-// =================== POLYMORPHISM ===================
-// MANY + FORMS, this refers to the situation where object can take many different forms
-
-
+// ==================== POLYMORPHISM ====================
 class Principal extends Person {
     override get fullName() {
-        return 'Principal' + super.fullName;
+        return `Principal ${super.fullName}`;
     }
-
-    // get fullName() {                         // if noImplicitOverride: true this will show an error
-    //     return 'Professor' + super.fullName;
-    // }
 }
 
 function printNames(people: Person[]) {
@@ -332,118 +293,86 @@ function printNames(people: Person[]) {
 printNames([
     new Student(1, "John", "Smith"),
     new Teacher("Albert", "Einstein"),
-    new Principal("Mary", "Smith")
-])
+    new Principal("Mary", "Smith"),
+]);
 
-// =============================== OPEN/CLOSED PRINCIPLE ====================================
-//                                                                                         //
-// The open/closed principle states that software entities should be open for extension,   //
-// but closed for modification.                                                            //
-//                                                                                         //
-//  This is where the Polymorphism and method overriding can be handy, like we added       //
-//  Principal class.                                                                       //
-//                                                                                         //
-//  Override is needed so that all classes behave the same way. Because smb can go and     //
-//  change fullName method in the base class to behave differently and then it won't be    //
-//  applied to the Child classes.                                                          //
-//                                                                                         //
-//  This would break our Polymorphism                                                      //
-//                                                                                         //
-// ==========================================================================================
+// ==================== OPEN/CLOSED PRINCIPLE ====================
+/**
+ * The open/closed principle states that software entities should be open for extension,
+ * but closed for modification.
+ * 
+ * Polymorphism and method overriding support this principle, ensuring new behaviors can be added
+ * without modifying existing code.
+ */
 
-
-
-// =============================== PRIVATE VS PROTECTED MODIFIER ====================================
-
-// The difference is protected members are inherited by the child classes, but private members are not.
-// You shouldm't use the protected member that often, because it could create a tight COUPLEING between the parent and child classes.
-
-// Coupling is simply the degree of dependency between two classes. The more a class is dependent on another class, the more tightly coupled they are.
-
-// So use private and public members, unless you have a good reason to use protected members.
+// ==================== PRIVATE VS PROTECTED MODIFIER ====================
+/**
+ * The key difference: protected members are inherited by child classes, 
+ * whereas private members are not.
+ * 
+ * Use protected sparingly to avoid tight coupling between classes.
+ */
 
 class Human {
     constructor(
-        public firstName: string, 
+        public firstName: string,
         public lastName: string,
     ) {}
 
-    private get fullName() {                        // this is private, so it can't be accessed by the child classes
-        return this.firstName + ' ' + this.lastName;
+    private get fullName() {
+        return `${this.firstName} ${this.lastName}`;
     }
 
-    protected walk() {            // this is protected, so it can be accessed by the child classes
+    protected walk() {
         console.log("Walking");
     }
 }
 
+// ==================== ABSTRACT CLASSES AND METHODS ====================
+/**
+ * Abstract classes provide a blueprint for other classes.
+ */
 
+abstract class Shape {
+    constructor(public color: string) {}
 
-// =============================== ABSTRACT CLASSES AND METHODS ====================================
-
-// Abstract classes are used to provide a blueprint for other classes.
-
-
-// class Shape {  // before
-abstract class Shape {  // after abstacting 
-    constructor( public color: string) {}
-
-    abstract render(): void;  // abstract methods can only exist inside absract classes. 
+    abstract render(): void; // Abstract methods exist only in abstract classes
 }
 
 class Circle extends Shape {
-    constructor(
-        public radius: number, 
-        color: string) {
+    constructor(public radius: number, color: string) {
         super(color);
     }
 
     override render(): void {
         console.log("Rendering a circle");
-    }   
+    }
 }
 
-// let shape = new Shape('red');  // after making it abstract we cannot create an instance here.
-// shape.render();  // But what does it mean to render a shape? It is not smth specific like circle or square. So this is an abstract concept. This is why we need to make the Shape object abstract. 
+// ==================== INTERFACES ====================
+/**
+ * Interfaces define the structure of objects/classes. They cannot implement methods, 
+ * but only declare their signatures.
+ */
 
-
-// ========================= INTERFACES ===============================
-
-// Using an interface we can say that all our calendars should have the same properties and methods defined in the interface.
-// Interfaces cannot have method implementations, they can only have the Declarations, so we only specify the signature of our methods.
-
-interface Calendar {   // purely used by TS, doesn't exist in JS
-    name: string,
-    addEvent(): void,    
-    removeEvent(): void,
+interface Calendar {
+    name: string;
+    addEvent(): void;
+    removeEvent(): void;
 }
-
-// So in this case we don't have method logic, but just declarations we can just use th eInterface
-// abstract class Calendar {
-//     constructor(public name: string) {};
-
-//     abstract addEvent(): void;
-//     abstract removeEvent(): void;
-
-// }
-
 
 interface CloudCalendar extends Calendar {
-    sync(): void,
+    sync(): void;
 }
 
 class GoogleCalendar implements Calendar {
-    
     constructor(public name: string) {}
 
     addEvent(): void {
         throw new Error("Method not implemented.");
     }
+
     removeEvent(): void {
         throw new Error("Method not implemented.");
     }
-
 }
-
-
-// So using an object we can define the shape of an object (class that extends the interface)
