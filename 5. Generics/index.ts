@@ -56,3 +56,38 @@ class ArrayUtils {
 }
 
 let nums = ArrayUtils.wrapInArray(1);
+
+
+
+// =========================== GENERIC INTERFACES =========================
+
+// Let's imagine we fetch the data from a website in the /users or products endpoints
+// With generic interfaces we can define reusable interfaces
+
+
+//  Result of calling the endpoints
+interface Result<T> {
+    data: T | null,              // null in case of error
+    error: string | null,        // null in case NO error occurs
+}
+
+function fetch<T>(url: string): Result<T> {
+    return {data: null, error: null} // example result
+}
+
+interface User {
+    username: string
+}
+
+interface Product {
+    title: string
+}
+
+
+// Using fetch with User and Product interfaces
+// at this point we have to specify the generic type.
+let resultUser = fetch<User>('url'); 
+let resultProduct = fetch<Product>('url'); 
+resultUser.data?.username;
+resultProduct.data?.title;
+
