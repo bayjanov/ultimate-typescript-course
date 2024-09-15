@@ -91,3 +91,78 @@ let resultProduct = fetch<Product>('url');
 resultUser.data?.username;
 resultProduct.data?.title;
 
+
+// =========================== GENERIC CONSTRAINTS =========================
+// We can restrict the types that can be used with generics
+
+
+
+// Here we can pass any type to the function. No restrictions
+function echo<T>(value: T): T {
+    return value;
+}
+
+echo(1); // 1
+echo("string"); // string
+echo({object: "Object"}); // {name: "John"}
+
+
+
+
+// Let's say we want to restrict the types to only objects
+// We can do this by using the 'extends' keyword
+
+function echoWithConstraints<T extends boolean | number | {name: string}>(value: T): T {
+    return value;
+}
+
+echoWithConstraints(1); // 1
+echoWithConstraints(true); // string
+echoWithConstraints({name: "John"}); 
+// echoWithConstraints("string");      // Error, because it doesn't match the constraints
+
+
+
+/* We can also constraint by an interface */
+interface IPerson {
+    name: string,
+    age: number
+}
+
+function echoWithInterface<T extends IPerson>(value: T): T {
+    return value;
+}
+
+echoWithInterface({name: "John", age: 25});
+
+
+
+/* We can also constraint by a class */
+class Car {
+    constructor(public brand: string) {}
+}
+
+function echoWithClass<T extends Car>(value: T): T {
+    return value;
+}
+
+echoWithClass(new Car("BMW"));
+
+
+/* We can also contraint by any classes that derive from a class */
+
+class Animal {
+    constructor(public name: string) {}
+}
+
+class Fox extends Animal {
+    constructor(name: string, public breed: string) {
+        super(name);
+    }
+}
+
+function echoWithClassConstraint<T extends Animal>(value: T): T {
+    return value;
+}
+
+echoWithClassConstraint(new Fox("Fox", "Red Fox"));   // It is allowed because Fox is a subclass of Animal
