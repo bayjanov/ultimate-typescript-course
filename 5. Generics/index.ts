@@ -29,3 +29,30 @@ let pair = new KeyValuePair(1, 'a');     // If we don't specify the types, then 
 
 
 
+
+
+// =========================== GENERIC FUNCTIONS =========================
+
+/* function wrapInArray(value: number) {     
+    return [value];
+} 
+*/
+
+function wrapInArray<T>(value: T) {
+    return [value];
+}
+
+// Auto infers the type. 
+let numbers =  wrapInArray(2);
+let strings =  wrapInArray("strings");   
+
+// This function can also be used inside a class
+
+class ArrayUtils {
+    // we don't use the 'function keyword inside the class, we just omit it. The 'function keyword is used only for standalone functions
+    static wrapInArray<T>(value:T) {     
+        return [value];
+    }
+}
+
+let nums = ArrayUtils.wrapInArray(1);
