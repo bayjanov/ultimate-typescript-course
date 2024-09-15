@@ -324,3 +324,13 @@ let readonlyCustomer: ReadOnly<ICustomer> = {
 // Link: https://www.typescriptlang.org/docs/handbook/utility-types.html
 
 
+
+
+// =========================== SUMMARY =========================
+
+// Generics are a way to make components reusable while still maintaining type safety.
+// We can use generics with classes, functions, and interfaces.
+// We can restrict the types that can be used with generics.
+// We can extend generic classes.
+// We can use the keyof operator to get the keys of an object.
+// We can use type mapping to transform one type into another.
