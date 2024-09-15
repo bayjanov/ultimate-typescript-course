@@ -215,3 +215,38 @@ class ProductStore extends Store<IProduct> {
         return [];
     }
 }
+
+
+
+
+// =========================== THE keyOf OPERATOR =========================
+
+// The keyof operator is used to get the keys of an object
+
+
+interface IProduct2 {
+    name: string;
+    price: number;
+}
+
+class Store2<T> {
+    protected _objects: T[] = [];
+    
+    add(object: T): void {
+        this._objects.push(object);
+    }
+
+    // if T is IProduct2
+    // keyof T => "name" | "price"
+    find(property: keyof T, value: unknown): T | undefined {
+        return this._objects.find(obj => obj[property ] === value);
+    }
+}
+
+
+let store2 = new Store2<IProduct2>();
+store2.add({name: "Product 1", price: 100});
+store2.find("name", "Product 1");
+store2.find("price", 100);
+
+// store2.find("noneExistingProperty", 1); // Error, because the property 'noneExistingProperty' doesn't exist in the IProduct2 interface
