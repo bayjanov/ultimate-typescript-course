@@ -166,3 +166,52 @@ function echoWithClassConstraint<T extends Animal>(value: T): T {
 }
 
 echoWithClassConstraint(new Fox("Fox", "Red Fox"));   // It is allowed because Fox is a subclass of Animal
+
+
+
+// =========================== EXTENDING GENERIC CLASSES =========================
+
+// Let's say we are building an ecommerce website. So here we can have objects like Products, Categories, Shopping Cart, etc.
+
+interface IProduct {
+    name: string;
+    price: number;
+}
+
+class Store<T> {
+    protected _objects: T[] = [];
+    
+    add(object: T): void {
+        this._objects.push(object);
+    }
+}
+
+// Scenario 1: We want to create a store that only accepts products
+class CompressibleStore<T> extends Store<T> {
+// class CompressibleStore extends Store<T> {// Error, because T is not defined
+    compress(): void { }
+}
+
+let store = new CompressibleStore<IProduct>();
+store.add({name: "Product 1", price: 100});
+store.compress();
+
+
+// Scenario 2: We are restricting the Generic type paramater to only objects that have a specific property
+
+class SearchableStore<T extends {name: string}> extends Store<T> {    // Resctricting/Extending T with {name: string} object
+    find(name: string): T | undefined {
+        /* The compiler won't recognize the name property, that is why we 
+         can (restrict/extend the T by {name: string}  object) */ 
+        return this._objects.find(obj => obj.name === name);          
+    }
+}
+
+
+// Scenario 3: Fixing the Generic Param to one specific type/interface. Because we want to have a store that only accepts products and performs product-specific operations only.  
+
+class ProductStore extends Store<IProduct> {
+    filterByCategory(category: string): IProduct[] {
+        return [];
+    }
+}
