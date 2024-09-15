@@ -250,3 +250,77 @@ store2.find("name", "Product 1");
 store2.find("price", 100);
 
 // store2.find("noneExistingProperty", 1); // Error, because the property 'noneExistingProperty' doesn't exist in the IProduct2 interface
+
+
+
+
+
+
+// =========================== TYPE MAPPING =========================
+// Type mapping is a powerful technique to transform one type into another. 
+
+// Let's say we have a type that has all the properties of another type, but they are all optional
+
+interface IProduct3 {
+    name: string;
+    price: number;
+}
+
+interface ICustomer {
+    name: string;
+    orders: number;
+}
+
+
+// We are gonna create a new type based on IProduct3, but in this new type we wanna add all the properties of IProduct3 dynamically, and make them readonly.
+
+type ReadonlyProduct = {
+    // Index signature
+    // keyof 
+    readonly [Property in keyof IProduct3]: IProduct3[Property]
+}
+
+let product: ReadonlyProduct = {
+    name: "Product 1",
+    price: 100
+}
+
+// product.name = "Product 2"; // Error, because the properties are readonly
+
+
+// What if we want also a readonly Customer or Order or any other type?
+// We can create a generic type that takes a type and returns a readonly version of that type
+
+
+type ReadOnly<T> = {
+    readonly [Property in keyof T]: T[Property]
+}
+
+type Optional<T> = {
+    [Property in keyof T]?: T[Property]
+}
+
+type Nullable<T> = {
+    [Property in keyof T]: T[Property] | null
+}
+
+// So the possibilities are endless. We can create any type of transformation we want. 
+
+
+let readonlyProduct: Readonly<IProduct3> = {
+    name: "Product 1",
+    price: 100
+}
+
+
+let readonlyCustomer: ReadOnly<ICustomer> = {
+    name: "John",
+    orders: 10
+}
+
+
+// Because these types are pretty useful, TypeScript has already defined them for us.
+// We can go and google: "typescript predefined utility types" 
+// Link: https://www.typescriptlang.org/docs/handbook/utility-types.html
+
+
