@@ -54,7 +54,7 @@ type ComponentOptions = {
 
 // Decorator Factory -  This function is acting as a Factory for creating a decorator
 function Component2 (options: ComponentOptions) {
-    return  (constructor: Function) => {
+    return  (constructor: any) => {
         console.log('Component Decorator called');
         constructor.prototype.uniqueID = Date.now();
         constructor.prototype.options = options;
@@ -76,7 +76,7 @@ class ParameterProfileComponent {
 // You can apply multiple decorators to a single class.  The decorators are applied in the order they are listed.  The first
 // decorator listed is the first one that is executed.
 
-function Pipe(constructor: Function) {
+function Pipe(constructor: any) {
     console.log('Pipe Decorator called');
     constructor.prototype.pipe = true;
 }
@@ -95,9 +95,9 @@ class Pipe_ProfileComponent {
 
 function Log(target: any, methodName: string, descriptor: PropertyDescriptor) {
     const original = descriptor.value as Function;
-    descriptor.value = function(...args: any) {  // to make this more generic, we can use a spread operator.
+    descriptor.value = function(...args: any[]) {  // to make this more generic, we can use a spread operator.
         console.log("Before");
-        original.call(this, ...args);   
+        original.call(this, args);   
         console.log("After")
     }
 }
@@ -109,3 +109,32 @@ class Person {
         console.log('Person says: ' + message);
     }
 }
+
+
+
+// ===================================== ACCESSOR DECORATORS =====================================
+// Accessor decorators are applied to the GETTER or SETTER of a class.  The accessor decorator is applied to the accessor
+// immediately following the accessor declaration.
+
+
+function Capitalize(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const original = descriptor.get;
+    descriptor.get = function () {
+        const result = original?.call(this);
+        return typeof result === 'string' ? result.toUpperCase() : result;
+    };
+}
+
+class Person_WithName {
+    constructor(public firstName: string, public lastName: string) {}
+
+    @Capitalize
+    get fullName(): any {
+        return `${this.fullName} ${this.lastName}`;
+        // return 0;
+        // return null;
+    }
+}
+
+let person = new Person_WithName("john", "doe");
+console.log(person.fullName)
