@@ -172,3 +172,31 @@ const user  = new User('12345678');
 
 console.log(user.password);  // 12345678
 
+
+
+// ===================================== PARAMETER DECORATORS =====================================
+// Parameter decorators are applied to the parameter of a class method.  The parameter decorator is applied to the parameter
+// immediately following the parameter declaration.
+
+type WatchedParams = {
+    methodName: string,
+    parameterIndex: number
+}
+
+const watchedParams: WatchedParams[] = [];
+
+function Watch(target: any, methodName: string, parameterIndex: number) {
+    watchedParams.push({
+        methodName, 
+        parameterIndex
+    });
+}
+
+class Vehicle {
+    move(@Watch speed: number) {
+        console.log(`Vehicle is moving at ${speed} km/hr`);
+    }
+}
+
+console.log(watchedParams);  // [ { methodName: 'move', parameterIndex: 0 } ]
+
