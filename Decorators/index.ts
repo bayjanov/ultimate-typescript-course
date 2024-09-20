@@ -70,3 +70,23 @@ function Component2 (options: ComponentOptions) {
 class ParameterProfileComponent {
 
 }
+
+
+// ===================================== DECORATOR COMPOSITION =====================================
+// You can apply multiple decorators to a single class.  The decorators are applied in the order they are listed.  The first
+// decorator listed is the first one that is executed.
+
+function Pipe(constructor: Function) {
+    console.log('Pipe Decorator called');
+    constructor.prototype.pipe = true;
+}
+
+@Component2({selector: '#my-profile'})
+@Pipe
+class Pipe_ProfileComponent {
+
+}
+
+
+
+
