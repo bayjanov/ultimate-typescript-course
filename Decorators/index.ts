@@ -88,5 +88,24 @@ class Pipe_ProfileComponent {
 }
 
 
+// ===================================== METHOD DECORATORS =====================================
+// Method decorators are applied to the method of a class.  The method decorator is applied to the method immediately following
+// the method declaration.
 
 
+function Log(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const original = descriptor.value as Function;
+    descriptor.value = function(...args: any) {  // to make this more generic, we can use a spread operator.
+        console.log("Before");
+        original.call(this, ...args);   
+        console.log("After")
+    }
+}
+
+class Person {
+
+    @Log
+    say(message: string) {
+        console.log('Person says: ' + message);
+    }
+}
