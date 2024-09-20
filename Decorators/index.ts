@@ -41,3 +41,32 @@ class BaseComponent {
 // @Component
 class ProfileComponent extends BaseComponent {
 }
+
+
+
+// ===================================== PARAMETERIZED DECORATORS =====================================
+// Decorators can also accept parameters.  This is useful when you want to pass information to the decorator at runtime.
+
+type ComponentOptions = {
+    selector: string
+}
+
+
+// Decorator Factory -  This function is acting as a Factory for creating a decorator
+function Component2 (options: ComponentOptions) {
+    return  (constructor: Function) => {
+        console.log('Component Decorator called');
+        constructor.prototype.uniqueID = Date.now();
+        constructor.prototype.options = options;
+        constructor.prototype.insertInDOM = () => {
+            console.log('Inserting the component into DOM');
+        }
+    }
+}
+
+ 
+// We are passing an object as an argument to the decorator, in this case we are passing an element in the DOM as a selector
+@Component2({selector: '#my-profile'})  
+class ParameterProfileComponent {
+
+}
