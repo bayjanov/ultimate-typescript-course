@@ -116,25 +116,59 @@ class Person {
 // Accessor decorators are applied to the GETTER or SETTER of a class.  The accessor decorator is applied to the accessor
 // immediately following the accessor declaration.
 
-
-function Capitalize(target: any, methodName: string, descriptor: PropertyDescriptor) {
-    const original = descriptor.get;
-    descriptor.get = function () {
-        const result = original?.call(this);
-        return typeof result === 'string' ? result.toUpperCase() : result;
-    };
-}
-
-class Person_WithName {
-    constructor(public firstName: string, public lastName: string) {}
-
-    @Capitalize
-    get fullName(): any {
-        return `${this.fullName} ${this.lastName}`;
-        // return 0;
-        // return null;
+function Capitalize(target: any, propertyName: string, descriptor: PropertyDescriptor) {
+    const original = descriptor.get as Function;
+    descriptor.get = function() {
+        return original.call(this).toUpperCase();
     }
 }
 
-let person = new Person_WithName("john", "doe");
-console.log(person.fullName)
+class Person2 {
+    constructor(private _firstName: string = 'John', private _lastName: string = 'Doe') {}
+
+    @Capitalize
+    get fullName() {
+        return this._firstName + ' ' + this._lastName;
+    }
+}
+
+const person = new Person2('John', 'Doe');
+console.log(person.fullName);  // JOHN DOE
+
+
+// ===================================== PROPERTY DECORATORS =====================================
+// Property decorators are applied to the property of a class.  The property decorator is applied to the property immediately
+// following the property declaration.
+
+function MinLength(length: number) {
+    return (target: any, propertyName: string) => {
+        let value: string;
+        
+        const descriptor: PropertyDescriptor = {
+            get() { return value; },
+            set(newValue: string) {
+                if (newValue.length < length) {
+                    throw new Error(`${propertyName} should be at least ${length} characters long`);
+                }
+                value = newValue;
+            }
+        }
+
+        Object.defineProperty(target, propertyName, descriptor);
+    }
+}
+
+class User {
+    @MinLength(8)
+    password: string;
+
+    constructor(password: string) {
+        this.password = password;
+    }
+}
+
+const user  = new User('12345678');  
+// const user = new User('1234567');  // Error: password should be at least 8 characters long
+
+console.log(user.password);  // 12345678
+

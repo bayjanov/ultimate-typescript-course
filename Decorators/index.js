@@ -186,32 +186,32 @@ var Person = function () {
 // ===================================== ACCESSOR DECORATORS =====================================
 // Accessor decorators are applied to the GETTER or SETTER of a class.  The accessor decorator is applied to the accessor
 // immediately following the accessor declaration.
-function Capitalize(target, methodName, descriptor) {
+// accessor dec => Capitalize all the letters in string (getter for fullName)
+function Capitalize(target, propertyName, descriptor) {
     var original = descriptor.get;
     descriptor.get = function () {
-        var result = original === null || original === void 0 ? void 0 : original.call(this);
-        return typeof result === 'string' ? result.toUpperCase() : result;
+        return original.call(this).toUpperCase();
     };
 }
-var Person_WithName = function () {
+var Person2 = function () {
     var _a;
     var _instanceExtraInitializers = [];
     var _get_fullName_decorators;
     return _a = /** @class */ (function () {
-            function Person_WithName(firstName, lastName) {
-                this.firstName = (__runInitializers(this, _instanceExtraInitializers), firstName);
-                this.lastName = lastName;
+            function Person2(_firstName, _lastName) {
+                if (_firstName === void 0) { _firstName = 'John'; }
+                if (_lastName === void 0) { _lastName = 'Doe'; }
+                this._firstName = (__runInitializers(this, _instanceExtraInitializers), _firstName);
+                this._lastName = _lastName;
             }
-            Object.defineProperty(Person_WithName.prototype, "fullName", {
+            Object.defineProperty(Person2.prototype, "fullName", {
                 get: function () {
-                    return "".concat(this.fullName, " ").concat(this.lastName);
-                    // return 0;
-                    // return null;
+                    return this._firstName + ' ' + this._lastName;
                 },
                 enumerable: false,
                 configurable: true
             });
-            return Person_WithName;
+            return Person2;
         }()),
         (function () {
             var _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
@@ -221,5 +221,5 @@ var Person_WithName = function () {
         })(),
         _a;
 }();
-var person = new Person_WithName("john", "doe");
-console.log(person.fullName);
+var person = new Person2('John', 'Doe');
+console.log(person.fullName); // JOHN DOE
