@@ -71,3 +71,8 @@ let car = new Vehicles.Car('make', 'model');
 let truck = new Vehicles.Truck('make', 'model');
 
 
+
+// =========================== RE-EXPORTING MODULES ===========================
+// You can import a module and then re-export it from your module.
+
+import { Bed, Chair, Desk } from './furniture';  // importing from furniture package's index.ts which re-exports Bed, Chair, Desk
