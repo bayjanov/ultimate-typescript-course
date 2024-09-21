@@ -30,3 +30,17 @@ console.log(tax);
 
 // JSDocs are comments that help you document your code. They also help TypeScript understand JS code.
 // We need to go to tsconfig.json and set "checkJs" to true to enable type checking for JS files.
+
+
+
+
+
+// ================================== DESCRIBING TYPES USING JSDOCS ================================
+
+import { newTaxCalculation } from './newTax';
+
+// let tax2 = newTaxCalculation();  // This will throw an error because we didn't pass any arguments
+let tax2 = newTaxCalculation(2_000);
+
+
+
