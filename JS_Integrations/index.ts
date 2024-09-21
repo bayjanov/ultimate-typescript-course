@@ -18,5 +18,15 @@ import { calculateTax } from './tax';
 
 // To resolve this, set "allowJs" to true in your tsconfig.json file. This allows TS to include JS files in the project.
 
-let tax = calculateTax(1000);
+
+
+let tax = calculateTax();  // If we don't pass any arguments, it will still run because we added @ts-nocheck in tax.js
 console.log(tax);
+
+
+
+
+// ================================ TYPE CHECKING JS CODE USING JSDOCS =============================
+
+// JSDocs are comments that help you document your code. They also help TypeScript understand JS code.
+// We need to go to tsconfig.json and set "checkJs" to true to enable type checking for JS files.
