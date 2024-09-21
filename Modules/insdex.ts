@@ -24,3 +24,30 @@ console.log(square.side);
 
 
 
+// =========================== MODULE FORMATS ===========================
+// CommonJS, AMD, System, UMD, ES6, ES2015
+// CommonJS is used in Node.js
+// AMD is used in require.js
+// System is used in System.js
+// UMD is used in both Node.js and require.js
+// ES6 is used in ES6 modules
+// ES2015 is used in ES2015 modules
+
+// To generate code for different module formats, you can use the --module flag with the tsc command like this:
+// tsc --module commonjs shapes.ts
+// tsc --module amd shapes.ts
+// tsc --module system shapes.ts
+// tsc --module umd shapes.ts
+// tsc --module es6 shapes.ts
+// tsc --module es2015 shapes.ts
+
+// You can also use the module property in tsconfig.json file to specify the module format like this:
+// {
+//   "compilerOptions": {
+//     "module": "commonjs"
+//   }
+// }
+
+// So depending on the module format you choose, the generated JS code will be different.
+
+
