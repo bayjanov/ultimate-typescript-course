@@ -51,3 +51,12 @@ console.log(square.side);
 // So depending on the module format you choose, the generated JS code will be different.
 
 
+
+// =========================== DEFAULT EXPORTS ===========================
+// Sometimes you want to export a single class, function, or variable from a module. You can use default exports for that.
+// You can have only one default export per module.
+
+// See storage.ts for an example of default export
+
+import Store, {Format} from './storage';
+
