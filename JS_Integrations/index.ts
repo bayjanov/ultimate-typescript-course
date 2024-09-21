@@ -44,3 +44,10 @@ let tax2 = newTaxCalculation(2_000);
 
 
 
+
+// ================================== CREATING DECLARATION FILES ====================================
+// Declaration files are files that describe the shape of an object or module. They have a .d.ts extension.
+
+import { sayHello } from './newTax';
+
+let tax3 = newTaxCalculation();

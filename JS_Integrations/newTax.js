@@ -1,11 +1,15 @@
-/**
- * 
- * @param {number} income 
- * @returns {number}
- */
+// /**
+//  * 
+//  * @param {number} income 
+//  * @returns {number}
+//  */
 
 function newTaxCalculation(income) {
   return income * .4;
 }
 
-module.exports = { newTaxCalculation };
+function sayHello() {
+  return "Hello";
+}
+
+module.exports = { newTaxCalculation, sayHello};
