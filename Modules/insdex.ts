@@ -60,3 +60,14 @@ console.log(square.side);
 
 import Store, {Format} from './storage';
 
+
+
+// =========================== WILDCARD IMPORTS ===========================
+// Sometimes we need to import all the exports from a module. You can use wildcard imports for that.
+
+import * as Vehicles from './vehicles';
+
+let car = new Vehicles.Car('make', 'model');
+let truck = new Vehicles.Truck('make', 'model');
+
+
