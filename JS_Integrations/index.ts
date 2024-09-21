@@ -51,3 +51,19 @@ let tax2 = newTaxCalculation(2_000);
 import { sayHello } from './newTax';
 
 let tax3 = newTaxCalculation();
+
+
+
+
+// ================================== USING DEFINIETELY TYPED DECLATION FILES ==========================
+
+import * as _ from 'lodash';  // This is a JS library. We can use it in TS by installing the @types/lodash package.
+
+// So in  this case we use a very popular GitHub repository called DefinitelyTyped. It has a lot of declaration files for popular libraries.
+
+// We installed a library with ```npm install @types/lodash --save-dev```
+
+_.clone([1, 2, 3]);
+
+
+// We also install a library called "chalk" with ```npm install chalk --save-dev```. This library is for coloring the console output. We installed this just to see its declaration file in action.You can go to node_modules/@types/chalk/index.d.ts to see the declaration file.
