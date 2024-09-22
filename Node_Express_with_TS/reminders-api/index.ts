@@ -39,6 +39,9 @@ console.log(x);
 
 import express from 'express';
 const app = express();
+
+app.use(express.json());  // This line of code is used to parse the request body as JSON.
+
 // app.listen(8000, () => console.log('Server is running'));
 
 // 7. We now can install "nodemon" to automatically restart the server when we make changes to the code by running "npm install -D nodemon"
@@ -65,3 +68,7 @@ import remindersRouter from './routers/reminders';
 app.use('/reminders', remindersRouter);
 
 app.listen(8000, () => console.log('Server is running'));
+
+
+// ============================== PARSING REQUEST BODIES ==============================
+// We can parse request bodies using the express.json() middleware.
