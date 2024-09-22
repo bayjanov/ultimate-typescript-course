@@ -39,7 +39,29 @@ console.log(x);
 
 import express from 'express';
 const app = express();
-app.listen(8000, () => console.log('Server is running'));
+// app.listen(8000, () => console.log('Server is running'));
 
 // 7. We now can install "nodemon" to automatically restart the server when we make changes to the code by running "npm install -D nodemon"
 // 8. Add a script to the package.json file to run the server with nodemon: "start": "nodemon index.ts"
+
+
+
+
+// ============================== CREATING A BASIC ROUTE ==============================
+// We can create a basic route that sends a response to the client.
+
+// 1. Create a route that sends a response to the client
+app.get('/', (req, res) => {
+    res.send('Hello World');
+});
+
+// You can test this route by running the server and visiting http://localhost:8000 in the browser.
+
+
+
+//  ============================== CREATING A ROUTER ==============================
+// We can create a router to group related routes together.
+import remindersRouter from './routers/reminders';
+app.use('/reminders', remindersRouter);
+
+app.listen(8000, () => console.log('Server is running'));
