@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ReminderList from './components/ReminderList';
-import Reminder from './models/Reminder';
+import Reminder from './models/reminder';
  
 
 const reminders: Reminder[] = [
