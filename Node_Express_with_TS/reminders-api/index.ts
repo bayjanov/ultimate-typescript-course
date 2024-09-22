@@ -22,3 +22,24 @@ console.log(x);
 // 2. run tsc index.ts to compile the file to JavaScript
 // 3. run node index.js to run the file with node
 
+
+
+
+// ============================== SETTING UP AN EXPRESS PROJECT WITH TYPESCRIPT ==============================
+
+// Steps to set up an Express project with TypeScript:
+
+// 1. Create a new directory for the project
+// 2. Run npm init -y to create a package.json file
+// 3. Run npm install express to install Express
+// 4. Run "npm install -D typescript @types/node @types/express" to install TypeScript as a dev dependency
+// 5. Create a tsconfig.json file to configure TypeScript
+// 6. Create an index.ts file to write the Express code
+
+
+import express from 'express';
+const app = express();
+app.listen(8000, () => console.log('Server is running'));
+
+// 7. We now can install "nodemon" to automatically restart the server when we make changes to the code by running "npm install -D nodemon"
+// 8. Add a script to the package.json file to run the server with nodemon: "start": "nodemon index.ts"
