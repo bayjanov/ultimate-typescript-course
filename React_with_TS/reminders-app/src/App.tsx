@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import ReminderList from "./components/ReminderList";
 import Reminder from "./models/reminder";
-
-// const reminders: Reminder[] = [
-//   { id: 1, title: 'Buy Milk' },
-//   { id: 2, title: 'Call Mom' },
-//   { id: 3, title: 'Send Report' }
-// ];
+import reminderService from "./services/reminder.service";
 
 function App() {
-  const [reminders, setReminders] = useState<Reminder[]>([
-    { id: 1, title: "Buy Milk" },
-    { id: 2, title: "Call Mom" },
-    { id: 3, title: "Send Report" },
-  ]);
+  const [reminders, setReminders] = useState<Reminder[]>([]);
+
+  useEffect(() => {
+    loadReminders();
+  }, []);
+
+  const loadReminders = async () => {
+    const reminders =  await reminderService.getReminders();
+    setReminders(reminders);
+  }
 
   return (
     <div className="App">
